@@ -10,14 +10,27 @@ const fs = require('fs')
 
 var command = process.argv[2]
 
-var input = ""
-   for (let i = 3; i < process.argv.length; i++) {
-       input += process.argv[i] + " "
+var userInput = ""
+for (let i = 3; i < process.argv.length; i++) {
+    userInput += process.argv[i] + " "
+};
 
 // function spotify.search
+function spotifyAxios(){
+
+    spotify.search({ type: 'track', query: 'All the Small Things' }, function(err, data) {
+        if (err) {
+            return console.log('Error occurred: ' + err);
+        }
+        
+        console.log(data); 
+    });
+};
 
 // function concert search
-axios.get(`https://rest.bandsintown.com/artists/${userInput}/events?app_id=${bandsInTown}`)
+function bandsAxios() {
+
+    axios.get(`https://rest.bandsintown.com/artists/${userInput}/events?app_id=${bandsInTown}`)
     .then(function (response) {
         // handle success
         console.log(response);
@@ -29,9 +42,12 @@ axios.get(`https://rest.bandsintown.com/artists/${userInput}/events?app_id=${ban
     .finally(function () {
         // always executed
     });
+};
 
 // function movie search
-axios.get(`http://www.omdbapi.com/?t=${userInput}&y=&plot=short&apikey=${omdbID}`)
+function omdbAxios() {
+
+    axios.get(`http://www.omdbapi.com/?t=${userInput}&y=&plot=short&apikey=${omdbID}`)
     .then(function (response) {
         // handle success
         console.log(response);
@@ -43,9 +59,8 @@ axios.get(`http://www.omdbapi.com/?t=${userInput}&y=&plot=short&apikey=${omdbID}
     .finally(function () {
         // always executed
     });
+};
 
 
 
-//loop through the data to be abe to read it properly 
-// for (let i = 3; i < process.argv.length; i++) {
-    // input += process.argv[i] + " "
+//loop through the data to be abe to read it properly
